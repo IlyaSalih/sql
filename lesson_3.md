@@ -37,3 +37,22 @@ HAVING COUNT(customer.customer_id) > 300;
 
 ## Задание 2
 
+Получите количество фильмов, продолжительность которых больше средней продолжительности всех фильмов.
+
+## Решение
+```
+SELECT COUNT(*) AS 'Number of films'
+FROM film
+WHERE length > (SELECT AVG(length) FROM film);
+```
+```
++-----------------+
+| Number of films |
++-----------------+
+|             489 |
++-----------------+
+1 row in set (0.00 sec)
+```
+![task_3_2.png](screenshots/task_3_2.png)
+
+## Задание 3

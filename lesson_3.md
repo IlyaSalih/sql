@@ -108,3 +108,30 @@ LIMIT 1;
 +---------+-----------------+------------------+
 1 row in set (0.01 sec)
 ```
+![task_3_3.png](screenshots/task_3_3.png)
+
+## Задание 4
+
+Посчитайте количество продаж, выполненных каждым продавцом. Добавьте вычисляемую колонку «Премия». Если количество продаж превышает 8000, то значение в колонке будет «Да», иначе должно быть значение «Нет».
+
+## Решение
+```
+SELECT
+    staff.staff_id AS 'ID',
+    staff.last_name AS 'Last name',
+    staff.first_name AS 'Name',
+    COUNT(payment.payment_id) AS 'Number of sales',
+    CASE WHEN COUNT(payment.payment_id) > 8000 THEN 'Yes' ELSE 'No' END AS 'Award'
+FROM staff
+JOIN payment ON payment.staff_id = staff.staff_id
+GROUP BY staff.staff_id, staff.last_name, staff.first_name;
+
++----+-----------+------+-----------------+-------+
+| ID | Last name | Name | Number of sales | Award |
++----+-----------+------+-----------------+-------+
+|  1 | Hillyer   | Mike |            8054 | Yes   |
+|  2 | Stephens  | Jon  |            7990 | No    |
++----+-----------+------+-----------------+-------+
+2 rows in set (0.02 sec)
+```
+![task_3_4.png](screenshots/task_3_4.png)

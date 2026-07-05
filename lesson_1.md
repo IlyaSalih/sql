@@ -1,4 +1,4 @@
-## Урок 1 Введение в SQL
+## Введение в SQL
 
 ### Задание 1
 
@@ -32,7 +32,7 @@ ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 ### Решение 
 
 [Таблица в текстовом редакторе](lesson_1/task_2.txt)
-
+```
 +---------------+----------------------+
 | Table_name    | Primary_key          |
 +---------------+----------------------+
@@ -53,11 +53,11 @@ ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 | staff         | staff_id             |
 | store         | store_id             |
 +---------------+----------------------+
-
+```
 ### Задание 3
 
 1. Уберите у пользователя sys_temp права на внесение, изменение и удаление данных из базы sakila.
 2. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
 
 ### Решение
-![task_4.png](screenshots/task_3.png)
+![task_4.png](screenshots/task_1_4.png)

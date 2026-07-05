@@ -24,8 +24,7 @@ JOIN address ON address.address_id = store.address_id
 JOIN city ON city.city_id = address.city_id
 GROUP BY store.store_id, staff.staff_id, staff.last_name, staff.first_name, city.city
 HAVING COUNT(customer.customer_id) > 300;
-```
-```
+
 +-----------+------------+------------+--------+
 | Last name | First name | City store | Buyers |
 +-----------+------------+------------+--------+
@@ -44,8 +43,7 @@ HAVING COUNT(customer.customer_id) > 300;
 SELECT COUNT(*) AS 'Number of films'
 FROM film
 WHERE length > (SELECT AVG(length) FROM film);
-```
-```
+
 +-----------------+
 | Number of films |
 +-----------------+
@@ -56,3 +54,57 @@ WHERE length > (SELECT AVG(length) FROM film);
 ![task_3_2.png](screenshots/task_3_2.png)
 
 ## Задание 3
+
+Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
+
+## Решение
+```
+SELECT DATE_FORMAT(payment_date, '%Y-%m') FROM payment LIMIT 5;
+
++------------------------------------+
+| DATE_FORMAT(payment_date, '%Y-%m') |
++------------------------------------+
+| 2005-05                            |
+| 2005-05                            |
+| 2005-06                            |
+| 2005-06                            |
+| 2005-06                            |
++------------------------------------+
+5 rows in set (0.01 sec)
+```
+```
+SELECT
+    DATE_FORMAT(payment_date, '%Y-%m') AS 'Month',
+    SUM(amount) AS 'Number of payments',
+    COUNT(*) AS 'Number of arends'
+FROM payment
+GROUP BY DATE_FORMAT(payment_date, '%Y-%m');
+
++---------+--------------------+------------------+
+| Month   | Number of payments | Number of arends |
++---------+--------------------+------------------+
+| 2005-05 |            4823.44 |             1156 |
+| 2005-06 |            9629.89 |             2311 |
+| 2005-07 |           28368.91 |             6709 |
+| 2005-08 |           24070.14 |             5686 |
+| 2006-02 |             514.18 |              182 |
++---------+--------------------+------------------+
+5 rows in set (0.01 sec)
+```
+```
+SELECT
+    DATE_FORMAT(payment_date, '%Y-%m') AS 'Month',
+    SUM(amount) AS 'Sum of payments',
+    COUNT(*) AS 'Number of arends'
+FROM payment
+GROUP BY DATE_FORMAT(payment_date, '%Y-%m')
+ORDER BY SUM(amount) DESC
+LIMIT 1;
+
++---------+-----------------+------------------+
+| Month   | Sum of payments | Number of arends |
++---------+-----------------+------------------+
+| 2005-07 |        28368.91 |             6709 |
++---------+-----------------+------------------+
+1 row in set (0.01 sec)
+```
